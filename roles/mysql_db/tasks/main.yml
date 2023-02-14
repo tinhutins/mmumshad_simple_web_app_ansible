@@ -1,0 +1,42 @@
+---
+# tasks file for mysql_db
+- name: Install MySQL database
+  apt:
+    name: "{{ item }}"
+    state:  present
+  with_items:
+   - mysql-server
+   - mysql-client
+
+- name: Start Mysql Service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create Application Database
+  mysql_db: name={{ db_name }} state=present
+  
+- name: Create Application DB User
+  mysql_user: name={{ db_user }} password={{ db_password }} priv='*.*:ALL' host='%' state='present'
+
+- name: Flush privileges after creating user
+  community.mysql.mysql_query:
+    login_db: "{{ db_name }}"
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    query: FLUSH PRIVILEGES
+
+- name: Copy a db-load-script
+  copy:
+    src: /tmp/db-load-script.sql
+    dest: /opt/db-load-script.sql
+    remote_src: no
+
+- name: Import db-load-script.sql
+  mysql_db:
+    login_user: "{{ db_user }}"
+    login_password: "{{ db_password }}"
+    state: import
+    name: "{{ db_name }}"
+    target: /opt/db-load-script.sql
