@@ -1,4 +1,4 @@
-ubuntu-node-01 ansible_host=192.168.43.131 ansible_user=tino ansible_ssh_pass=tino
+ubuntu-node-01 ansible_host=192.168.43.133 ansible_user=tino ansible_ssh_pass=tino
 
 [db_and_web_servers]
 ubuntu-node-01
