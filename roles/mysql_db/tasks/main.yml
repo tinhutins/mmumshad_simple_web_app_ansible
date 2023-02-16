@@ -8,6 +8,13 @@
    - mysql-server
    - mysql-client
 
+- name: Update MySQL Configuration file to accept connections from all interfaces
+  ini_file:
+    path: /etc/mysql/my.cnf
+    section: mysqld
+    option: bind-address
+    value: 0.0.0.0
+
 - name: Start Mysql Service
   service:
     name: mysql
