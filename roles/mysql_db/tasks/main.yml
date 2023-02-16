@@ -36,7 +36,7 @@
 
 - name: Copy a db-load-script
   copy:
-    src: /tmp/db-load-script_copy.sql
+    src: /tmp/db-load-script.sql
     dest: /opt/db-load-script.sql
     remote_src: no
 

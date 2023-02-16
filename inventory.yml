@@ -1,0 +1,4 @@
+ubuntu-node-2 ansible_host=192.168.43.135 ansible_user=tino
+
+[db_and_web_servers]
+ubuntu-node-2
